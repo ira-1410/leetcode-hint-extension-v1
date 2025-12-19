@@ -1,0 +1,64 @@
+body {
+    font-family: system-ui, sans-serif;
+    width: 300px;
+    padding: 10px;
+    background-color: #2a363b;
+    color: #2a363b;
+}
+
+h2 {
+    margin-top: 0;
+    font-size: 30px;
+    text-align: center;
+    color: #99b898;
+}
+
+#problem-title {
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #99b898;
+}
+
+#hints-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.hint-row {
+    display: grid;
+    grid-template-columns: 55px 1fr;
+    align-items: start;
+    background-color: #99b898;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+.hint-number {
+    font-size: 30px;
+    font-weight: 800;
+    color: #444;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.hint-text {
+    font-size: 14px;
+    line-height: 1.4;
+    font-family: system-ui, sans-serif;
+}
+
+#show-hint {
+    margin-top: 20px;
+    width: 100%;
+    font-size: 25px;
+    border: none;
+    background: #f1f1f1;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#show-hint:hover {
+    background: #e5e5e5;
+}
