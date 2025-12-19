@@ -1,6 +1,8 @@
+const BACKEND_URL = "https://leetcode-hint-extension-v1.onrender.com/hints";
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.type === "FETCH_HINTS") {
-      fetch("http://127.0.0.1:3100/hints", {
+      fetch(BACKEND_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
