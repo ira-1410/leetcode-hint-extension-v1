@@ -10,6 +10,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("OK");
+});
+
+
 app.post("/hints", async (req, res) => {
   const cached = getCachedHints(req.body.title);
   if (cached) {
