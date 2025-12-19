@@ -43,7 +43,8 @@ app.post("/hints", async (req, res) => {
   }
 });
 
-app.listen(3100, "127.0.0.1", () => {
-    console.log("Backend running on http://127.0.0.1:3100");
-    console.log("Gemini key loaded:", !!process.env.GEMINI_API_KEY);
+const PORT = process.env.PORT || 3100;
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Backend running on port ${PORT}`);
 });
