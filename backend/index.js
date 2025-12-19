@@ -40,8 +40,8 @@ app.post("/hints", async (req, res) => {
     return res.json({ hints, cached: false });
 
   } catch (err) {
-    console.error("Gemini error:", err);
-    return res.json({
+    console.error("Backend error:", err);
+    return res.status(500).json({
       hints: [
         "Focus on the core data structure suggested by the problem",
         "Think about how constraints affect your approach",
@@ -51,6 +51,7 @@ app.post("/hints", async (req, res) => {
     });
   }
 });
+
 
 const PORT = process.env.PORT || 3100;
 
