@@ -1,13 +1,11 @@
-export function getCachedHints(cacheKey) {
-  return new Promise((resolve) => {
-    chrome.storage.local.get([cacheKey], (result) => {
-      resolve(result[cacheKey] || null);
-    });
-  });
+const cache = new Map();
+
+export function getCachedHints(key) {
+  return cache.get(key) || null;
 }
 
-export function setCachedHints(cacheKey, hints) {
-  return new Promise((resolve) => {
-    chrome.storage.local.set({ [cacheKey]: hints }, resolve);
-  });
+export function setCachedHints(key, hints) {
+  if (Array.isArray(hints)) {
+    cache.set(key, hints);
+  }
 }

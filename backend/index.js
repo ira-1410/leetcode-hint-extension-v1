@@ -14,37 +14,41 @@ app.get("/", (req, res) => {
   res.send("OK");
 });
 
-
 app.post("/hints", async (req, res) => {
-  const cached = getCachedHints(req.body.title);
-  if (cached) {
-    return res.json({ hints: cached, cached: true });
-  }
-
-
   try {
-    const raw = await generateHints(req.body);
+    const { title = "", tags = [] } = req.body || {};
+
+    if (!title) {
+      return res.json({ hints: [] });
+    }
+
+    const cached = getCachedHints(title);
+    if (cached) {
+      return res.json({ hints: cached, cached: true });
+    }
+
+    const raw = await generateHints({ title, tags });
 
     const hints = raw
-        .split("\n")
-        .map(h => h.trim())
-        .filter(h => h.length > 0)
-        .slice(0, 3);
+      .split("\n")
+      .map(h => h.trim())
+      .filter(Boolean)
+      .slice(0, 3);
 
-    await setCachedHints(req.body.title, hints);
+    setCachedHints(title, hints);
 
-    res.json({ hints, cached: false });
+    return res.json({ hints, cached: false });
 
   } catch (err) {
-    console.error("Gemini error:", err.message);
-    //fallback
-    res.json({
-        hints: [
-          "Focus on the core data structure suggested by the problem",
-          "Think about how constraints affect your approach",
-          "Try solving a small example step by step"
-        ]
-      });
+    console.error("Gemini error:", err);
+    return res.json({
+      hints: [
+        "Focus on the core data structure suggested by the problem",
+        "Think about how constraints affect your approach",
+        "Try solving a small example step by step"
+      ],
+      cached: false
+    });
   }
 });
 
